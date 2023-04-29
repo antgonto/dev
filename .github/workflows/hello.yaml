@@ -14,4 +14,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print-to-screen
-        run: echo "Hello world ${{ env.TEXT }}"
+        run: echo "Hello world, secret ${{ secrets.secret_name }}"
