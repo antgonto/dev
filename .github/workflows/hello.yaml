@@ -1,0 +1,14 @@
+name: hello-world
+
+# trigger
+on:
+  push:
+    branches: ["stage"]
+
+# pipeline
+jobs:
+  print: # name
+    runs-on: ubuntu-latest
+    steps:
+      - name: print-to-screen
+        run: echo "Hello world!!"
