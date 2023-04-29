@@ -5,10 +5,13 @@ on:
   push:
     branches: ["stage"]
 
+env:
+  TEXT: "Antonio González Torres"
+
 # pipeline
 jobs:
   print: # name
     runs-on: ubuntu-latest
     steps:
       - name: print-to-screen
-        run: echo "Hello world!!"
+        run: echo "Hello world ${{ env.TEXT }}"
