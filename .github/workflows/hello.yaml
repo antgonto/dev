@@ -15,3 +15,11 @@ jobs:
     steps:
       - name: print-to-screen
         run: echo "Hello world, secret ${{ secrets.secret_name }}"
+
+      - name: The job has succeded?
+        if: ${{ success() }}
+        run: echo "Job Succeeded!"
+
+      - name: The job has failed?
+        if: ${{ failure() }}
+        run: echo "Job fails :("
