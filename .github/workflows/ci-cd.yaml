@@ -67,7 +67,7 @@ jobs:
           kustomize-version: "3.6.1"
       - name: Update Kubernetes resource
         run: |
-          echo "$(pwd)"
+          echo "test" & "$(pwd)"
           cd "lab05/public-api/overlays/stage"
           kustomize edit set image KUSTOMIZE-DEFINED=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           
