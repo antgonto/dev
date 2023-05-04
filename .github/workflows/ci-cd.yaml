@@ -9,7 +9,7 @@ env:
   REGISTRY: antgonto
   IMAGE_NAME: kubelabs_publicapi
   OPS_BRANCH: master
-  OPS_REPO: antgonto/dev
+  OPS_REPO: antgonto/ops
 
 jobs:
   build:
@@ -68,6 +68,7 @@ jobs:
       - name: Update Kubernetes resource
         run: |
           echo "$(pwd)"
+          echo "$(ls)"
           cd "lab05/public-api/overlays/stage"
           kustomize edit set image KUSTOMIZE-DEFINED=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           
