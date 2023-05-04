@@ -69,6 +69,8 @@ jobs:
           cat app.yaml
       - name: Commit files
         run: | 
+          git config --local user.email "bot@deploybot.dev"
+          git config --local user.name "Automation"
           git add .
           git commit -am "New image version. Branch staging. Tag: ${{ env.VERSION }}"
           git push origin ${{ env.OPS_BRANCH }} --force
