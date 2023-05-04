@@ -1,3 +1,4 @@
+# https://github.com/marketplace/actions/setup-kustomize
 name: docker-image
 # trigger
 on:
@@ -12,6 +13,10 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    outputs:
+      RELEASE_VERSION: ${{ steps.tagVersion.outputs.RELEASE_VERSION}}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,8 +25,10 @@ jobs:
       - name: Get TAG Version
         run: echo "RELEASE_VERSION=$(git tag --sort=-creatordate | head -1)" >> $GITHUB_ENV
       - name: Show new tag
+        id: tagVersion
         run: |
           echo ${{ env.RELEASE_VERSION }}
+          echo "::set-output name=RELEASE_VERSION::${{ env.RELEASE_VERSION }}"
       - name: Login to Dockerhub
         uses: docker/login-action@v2
         with:
@@ -35,6 +42,36 @@ jobs:
           tags: ${{ env.REGISTRY}}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
           build-args: |
             APP_ENV=${{ secrets.APP_ENV }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    env:
+      VERSION: ${{ needs.build.ouputs.RELEASE_VERSION }}
+
+    steps:
+      - name: Checkout OPS code
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.OPS_REPO }}
+          ssh-key: ${{ secrets.OPS_TOKEN }}
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v2
+        with:
+          kustomize-version: "3.6.1"
+      - name: Update Kubernetes resource
+        run: |
+          cd lab05/public-api/overlays/stage
+          kustomize edit set image KUSTOMIZE-DEFINED=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          
+          # Opcional
+          kustomize build . > app.yaml
+          cat app.yaml
+      - name: Commit files
+        run: | 
+          git add .
+          git commit -am "New image version. Branch staging. Tag: ${{ env.VERSION }}"
+          git push origin ${{ env.OPS_BRANCH }} --force
 
 #      - name: test
 #        run: docker run --rm --name api -p 3000:3000 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
