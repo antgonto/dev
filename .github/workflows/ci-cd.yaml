@@ -69,7 +69,7 @@ jobs:
         run: |
           echo "$(pwd)"
           echo "$(ls)"
-          cd lab05/public-api/overlays/stage
+          cd lab07/public-api/overlays/stage
           kustomize edit set image KUSTOMIZE-DEFINED=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           
           # Opcional
