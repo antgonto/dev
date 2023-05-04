@@ -18,11 +18,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Get TAG Version
-        run: echo "RELEASE_VERSION=$(git tag --sort=-creatordate | HEAD -1)" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=$(git tag --sort=-creatordate | head -1)" >> $GITHUB_ENV
       - name: Show new tag
         run: |
           echo ${{ env.RELEASE_VERSION }}
-
       - name: Login to Dockerhub
         uses: docker/login-action@v2
         with:
