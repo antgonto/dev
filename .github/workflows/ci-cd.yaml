@@ -53,7 +53,7 @@ jobs:
     needs: build
 
     env:
-      VERSION: ${{ needs.build.ouputs.RELEASE_VERSION }}
+      VERSION: ${{ needs.build.outputs.RELEASE_VERSION }}
 
     steps:
       - name: Checkout OPS code
@@ -67,7 +67,7 @@ jobs:
           kustomize-version: "3.6.1"
       - name: Update Kubernetes resource
         run: |
-          echo "test" & "$(pwd)"
+          echo "$(pwd)"
           cd "lab05/public-api/overlays/stage"
           kustomize edit set image KUSTOMIZE-DEFINED=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           
