@@ -3,7 +3,7 @@ name: docker-image
 # trigger
 on:
   push:
-    branches: ["master"]
+    branches: ["main"]
 
 env:
   REGISTRY: antgonto
