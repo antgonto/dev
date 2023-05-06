@@ -24,8 +24,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get TAG Version
-        run: echo "RELEASE_VERSION=$(git tag --sort=-creatordate | head -1)" >> $GITHUB_ENV
+        # Hacer tag por version
+#      - name: Get TAG Version
+#        run: echo "RELEASE_VERSION=$(git tag --sort=-creatordate | head -1)" >> $GITHUB_ENV
+
+#      Hacer tag por version
+      - name: Get COMMIT Version
+        run: echo "RELEASE_VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Show new tag
         id: tagVersion
