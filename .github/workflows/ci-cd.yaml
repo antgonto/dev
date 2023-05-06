@@ -72,9 +72,9 @@ jobs:
           cd lab07/public-api/overlays/stage
           kustomize edit set image KUSTOMIZE-DEFINED=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           
-          # Opcional
-          kustomize build lab07/public-api/overlays/stage > app.yaml
-          cat app.yaml
+#          # Opcional
+#          kustomize build lab07/public-api/overlays/stage > app.yaml
+#          cat app.yaml
       - name: Commit files
         run: | 
           git config --local user.email "bot@deploybot.dev"
