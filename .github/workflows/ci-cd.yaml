@@ -80,9 +80,8 @@ jobs:
           git config --local user.email "bot@deploybot.dev"
           git config --local user.name "Automation"
           git add .
-          git commit -am "New image version. Branch staging. Tag: ${{ env.VERSION }}"
+          git diff-index --quiet HEAD || git commit -am "New image version. Branch staging. Tag: ${{ env.VERSION }}"
           git push origin ${{ env.OPS_BRANCH }} --force
-          
 
 #      - name: test
 #        run: docker run --rm --name api -p 3000:3000 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
