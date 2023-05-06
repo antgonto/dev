@@ -73,7 +73,7 @@ jobs:
           kustomize edit set image KUSTOMIZE-DEFINED=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           
           # Opcional
-          kustomize build . > app.yaml
+          kustomize build lab07/public-api/overlays/stage > app.yaml
           cat app.yaml
       - name: Commit files
         run: | 
