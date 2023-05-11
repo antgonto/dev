@@ -24,6 +24,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
         # Hacer tag por version
 #      - name: Get TAG Version
 #        run: echo "RELEASE_VERSION=$(git tag --sort=-creatordate | head -1)" >> $GITHUB_ENV
