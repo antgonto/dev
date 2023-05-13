@@ -39,7 +39,7 @@ jobs:
         run: echo ${{ env.SONAR_STATUS }}
 
       - name: Circuit Breaker
-        if: ${{ env.SONAR_STATUS }} == 'ERROR'
+        if: ${{ env.SONAR_STATUS == 'ERROR' }}
         run: exit 1
 
         # Hacer tag por version
