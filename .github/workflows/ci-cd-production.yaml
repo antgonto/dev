@@ -39,6 +39,10 @@ jobs:
       - name: Sonar Status
         run: echo ${{ env.SONAR_STATUS }}
 
+      - name: Circuit Breaker
+        if: ${{ env.SONAR_STATUS }} == 'ERROR'
+        run: exit 1
+
         # Hacer tag por version
 #      - name: Get TAG Version
 #        run: echo "RELEASE_VERSION=$(git tag --sort=-creatordate | head -1)" >> $GITHUB_ENV
