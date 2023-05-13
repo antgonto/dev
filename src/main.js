@@ -91,15 +91,6 @@ function multiply(a, b) {
   return a * b;
 }
 
-multiply(2); // Missing the second argument
-
-try {
-  // Some code that may throw an exception
-} catch (error) {
-  // Empty catch block
-}
-
-var regex = /^(a+)+$/;
 
 
 
