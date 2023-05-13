@@ -84,13 +84,3 @@ app.listen(config.NODE_PORT, () => {
 app.listen(3080, () => {
   logger.info(`/healthcheck on port 3080`)
 })
-
-var unusedVariable = 42;
-
-function multiply(a, b) {
-  return a * b;
-}
-
-
-
-
