@@ -23,11 +23,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+# Test
+ # curl  --header 'Authorization: Bearer 1716711cc0599554313c0674b89df57e5e6fa789' https://sonarcloud.io/api/qualitygates/project_status\?projectKey\=antgonto_dev | jq -r '.projectStatus.status'
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # Poner Bearear de Sonar en secret
+      - name: Check Scan
+        run: |
+          echo "SONAR_STATUS=$(curl  --header 'Authorization: Bearer ${{ secrets.SONAR_TOKEN }}' https://sonarcloud.io/api/qualitygates/project_status\?projectKey\=${{ secrets.PROJECT_KEY }} | jq -r '.projectStatus.status') >> $GITHUB_ENV
 
         # Hacer tag por version
 #      - name: Get TAG Version
